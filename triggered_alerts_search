@@ -1,6 +1,8 @@
 #############################################################################
-############## Search to see the alerts was triggered no Splunk #############
-## Don't forget to set the time range to run this search, i.e.: @d, 1h, 5m ##
+## Search to see the alerts was triggered no Splunk
+## Created by: Rafael Santos
+## Date: 09/19/2019
+## Don't forget to set the time range to run this search, i.e.: @d, 1h, 5m
 #############################################################################
 
 index=_audit action="alert_fired"
