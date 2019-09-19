@@ -1,0 +1,7 @@
+index=_audit action="alert_fired"
+| rename ss_name AS title
+| join title [ | rest /servicesNS/-/-/saved/searches splunk_server=local | table title, alert_threshold, severity ]
+| where like(alert_actions, "%script%")
+| rename title AS Rule
+| stats values(severity) AS Severity, values(ss_app) AS Customer, count AS Incident by Rule
+| sort -Severity, -count
