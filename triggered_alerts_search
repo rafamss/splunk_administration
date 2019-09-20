@@ -5,11 +5,11 @@
 ## Don't forget to set the time range to run this search, i.e.: @d, 1h, 5m
 #############################################################################
 
-index=_audit action="alert_fired"
+index=_audit action="alert_fired" ss_app="splunk_vid_app"
 | rename ss_name AS title
 | join title [ | rest /servicesNS/-/-/saved/searches splunk_server=local | table title, alert_threshold, severity ]
-| where like(alert_actions, "%script%")
+| where like(alert_actions, "%script%") AND triggered_alerts > 0
 | rename title AS Rule
-| stats values(severity) AS Severity, values(ss_app) AS Customer, count AS Incident by Rule
+| stats values(severity) AS Severity, values(ss_app) AS Customer, sum(triggered_alerts) AS Eventos, count AS Incident by Rule
 | addcoltotals label=Total labelfield=Rule
 | sort -Severity, -count
