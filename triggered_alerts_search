@@ -11,4 +11,5 @@ index=_audit action="alert_fired"
 | where like(alert_actions, "%script%")
 | rename title AS Rule
 | stats values(severity) AS Severity, values(ss_app) AS Customer, count AS Incident by Rule
+| addcoltotals label=Total labelfield=Rule
 | sort -Severity, -count
