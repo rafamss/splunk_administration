@@ -8,7 +8,7 @@
 #############################################################################
 ## Search to see the alerts was triggered no Splunk #########################
 #############################################################################
-index=_audit action="alert_fired" ss_app="splunk_vid_app"
+index=_audit action="alert_fired" ss_app="[app_name]"
 | rename ss_name AS title
 | join title [ | rest /servicesNS/-/-/saved/searches splunk_server=local | table title, alert_threshold, severity ]
 | where like(alert_actions, "%script%") AND triggered_alerts > 0
