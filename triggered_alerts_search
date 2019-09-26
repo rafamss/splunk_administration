@@ -23,3 +23,8 @@ index=_audit action="alert_fired" ss_app="[app_name]"
 ## Don't forget to set name of the ss_name
 #############################################################################
 index=_audit action="alert_fired" ss_name="[name of alert/saved search]" triggered_alerts > 0
+
+alerts triggered by app:
+
+| rest /servicesNS/-/-/saved/searches splunk_server=local
+| search disabled=1 eai:acl.app="[app_name]" action.script.filename!="" title="[title]"
