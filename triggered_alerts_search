@@ -18,13 +18,28 @@ index=_audit action="alert_fired" ss_app="[app_name]"
 | sort -Severity, -count
 
 #############################################################################
-## Search how many times a specific alert/saved search was triggered#########
+## Search how many times a specific alert/saved search was triggered ########
 ## Don't forget to set the time range to run this search, i.e.: @d, 1h, 5m
 ## Don't forget to set name of the ss_name
 #############################################################################
 index=_audit action="alert_fired" ss_name="[name of alert/saved search]" triggered_alerts > 0
 
-alerts triggered by app:
-
+#############################################################################
+## alerts triggered by app ##################################################
+#############################################################################
 | rest /servicesNS/-/-/saved/searches splunk_server=local
 | search disabled=1 eai:acl.app="[app_name]" action.script.filename!="" title="[title]"
+
+#############################################################################
+## See the results of SLA Severity defined by the client ####################
+#############################################################################
+index=_audit action="alert_fired" ss_app=[app_name]
+| rename ss_name AS title
+| join title [ | rest /servicesNS/-/-/saved/searches splunk_server=local | table title, alert_threshold, search, severity ]
+| where like(alert_actions, "%script%") AND triggered_alerts > 0
+| rename title AS Rule
+## Optional regex ##
+| rex field=search "\_Severity\=\"(?<SevSLA>\d)\""
+| stats values(severity) AS Severity, values(ss_app) AS Customer, sum(triggered_alerts) AS Eventos, count AS Incident by Rule, SevSLA
+| addcoltotals label=Total labelfield=Rule
+| sort -Severity, -count
