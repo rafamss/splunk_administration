@@ -1,0 +1,14 @@
+There are three ways to verify the ports that are configured for Splunk. By default, Splunk will run on port 8000 for the web services and port 8089 for splunkd services. 
+
+Check the $SPLUNK_HOME/etc/system/local/web.conf for port settings: 
+
+mgmtHostPort = 127.0.0.1:8089 
+httpport = 8000 
+
+Run the following command: 
+
+./splunk show web-port 
+./splunk show splunkd-port 
+
+Use the btool command to see web.conf settings: 
+./splunk cmd btool web list --debug 
