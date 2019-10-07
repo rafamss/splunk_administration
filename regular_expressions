@@ -1,0 +1,2 @@
+## Get the EventCode digits [ size 4 until 6 ] when the EventCode string exists.
+\sEventCode\=(?<Events>\d{4,6})
