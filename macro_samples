@@ -1,0 +1,17 @@
+## Macro Name
+incidentes_forwarded(2)
+## Macro Definition
+index=_audit action="alert_fired" earliest=$arg1$ latest=$arg2$ 
+| rename ss_name AS title 
+| join title [ | rest /servicesNS/-/-/saved/searches splunk_server=local | table title, alert_threshold, severity ] 
+| where like(alert_actions, "%script%") AND triggered_alerts > 0 
+| rename title AS Rule, ss_app AS Customer 
+| table _time, Customer, Rule 
+| addcoltotals label=Total labelfield=Rule | sort -_time
+## Macro Use
+## Get the results between 22hrs-6hrs: @d+22h @d+30h
+`incidentes_forwarded(@d+22h, @d+30h)`
+## Get the results between 6hrs-15hrs: @d+6h @d+15h
+`incidentes_forwarded(@d+6h, @d+15h)`
+## Get the results between 14hrs-22:48hrs: @d+14h @d+23h-12m
+`incidentes_forwarded(@d+14h, @d+23h-12m)`
