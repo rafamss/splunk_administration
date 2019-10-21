@@ -43,3 +43,12 @@ index=_audit action="alert_fired" ss_app=[app_name]
 | stats values(severity) AS Severity, values(ss_app) AS Customer, sum(triggered_alerts) AS Eventos, count AS Incident by Rule, SevSLA
 | addcoltotals label=Total labelfield=Rule
 | sort -Severity, -count
+
+## Verify the Alerts that uses to the script to fire ##
+
+| rest /servicesNS/-/-/saved/searches splunk_server=local 
+| search eai:acl.app=[app_name] disabled=0 action.script!="" next_scheduled_time!="" action.script.filename=[script_name] next_scheduled_time > "2019-10-10 00:00:00 -03"
+| rename eai:acl.app AS Customer, eai:acl.owner AS Owner
+| table Customer, title, Owner, search, next_scheduled_time, action.script, action.script.filename
+| sort title
+
