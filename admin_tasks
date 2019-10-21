@@ -15,4 +15,14 @@ Use the btool command to see web.conf settings:
 
 ## Check the size of indexes showing the size in MB and GB ##
 
-| REST /services/data/indexes | eval currentDBSizeGB=round((currentDBSizeMB/1024), 2) | table splunk_server, title, currentDBSizeMB, currentDBSizeGB | sort - currentDBSizeGB
+| REST /services/data/indexes 
+| eval currentDBSizeGB=round((currentDBSizeMB/1024), 2) 
+| table splunk_server, title, currentDBSizeMB, currentDBSizeGB 
+| sort - currentDBSizeGB
+
+## Check the minimum and maximum date and time of storage data of indexes ##
+
+| metadata index=index* type=sourcetypes 
+| eval it=strftime(firstTime,"%Y-%m-%d %H:%M:%S")
+| eval et=strftime(lastTime,"%Y-%m-%d %H:%M:%S")
+| stats min(it) AS DataInitial, max(et) AS DataFinal by sourcetype
