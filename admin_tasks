@@ -15,4 +15,4 @@ Use the btool command to see web.conf settings:
 
 ## Check the size of indexes showing the size in MB and GB ##
 
-| REST /services/data/indexes | eval currentDBSizeGB=round((currentDBSizeMB/1024), 2) | table title, currentDBSizeMB, currentDBSizeGB | sort - currentDBSizeGB
+| REST /services/data/indexes | eval currentDBSizeGB=round((currentDBSizeMB/1024), 2) | table splunk_server, title, currentDBSizeMB, currentDBSizeGB | sort - currentDBSizeGB
