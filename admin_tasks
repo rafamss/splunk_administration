@@ -26,3 +26,8 @@ Use the btool command to see web.conf settings:
 | eval it=strftime(firstTime,"%Y-%m-%d %H:%M:%S")
 | eval et=strftime(lastTime,"%Y-%m-%d %H:%M:%S")
 | stats min(it) AS DataInitial, max(et) AS DataFinal by sourcetype
+
+## See the data receiving by forwarder type ##
+
+index=_internal source=*metrics.log group=tcpin_connections 
+| stats values(sourceIp) count by fwdType
