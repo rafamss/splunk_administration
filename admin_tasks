@@ -31,3 +31,12 @@ Use the btool command to see web.conf settings:
 
 index=_internal source=*metrics.log group=tcpin_connections 
 | stats values(sourceIp) count by fwdType
+
+## How to determine my indexing volume by host, source, or sourcetype ##
+
+-> Per host:
+``` index="_internal" source="*metrics.log" group="per_host_thruput" | chart sum(kb) by series | sort - sum(kb) ```
+-> Per source:
+``` index="_internal" source="*metrics.log" group="per_source_thruput" | chart sum(kb) by series | sort - sum(kb) ```
+-> Per sourcetype:
+``` index="_internal" source="*metrics.log" group="per_sourcetype_thruput" | chart sum(kb) by series | sort - sum(kb) ```
