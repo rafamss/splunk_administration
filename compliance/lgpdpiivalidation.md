@@ -30,3 +30,14 @@ card_credit
 card_credito
 cart_credito
 ```
+
+** Test a cpf number: **
+
+> rex field=_raw "(?<cpfIncidence>(\d){3}\.(\d){3}\.(\d){3}\-(\d){2}|(\d{11}))"
+
+```
+011.888.710-64
+53967337057
+61949788300
+212.287.153-94
+```
