@@ -1,11 +1,12 @@
-# This file is concepted to test the basics Personally identifiable information (PII) using Regular Expressions (ReGex) into Splunk Enterprise in a Search Time to validate my personal Proof of Concept (PoC).
+### This file is concepted to test the basics Personally identifiable information (PII) using Regular Expressions (ReGex) into Splunk Enterprise in a Search Time to validate my personal Proof of Concept (PoC).
 
-- A valid e-mail address
+1. Test a valid e-mail address
 
 `rex field=_raw "(?<email>[a-zA-Z0-9_+&*-]+(?:\.[a-zA-Z0-9_+&*-]+)*@(?:[a-zA-Z0-9-]+\.)+[a-zA-Z]{2,7})`
 
-Samples used to test:
+1.1 Samples used to test:
 
+`
 182098102983 akssdlksja EMAIL@GMAIL.COM 123 jadlka nkjda908a0dun sadsd
 maldj ajoj20 810 jlkjd ajas hsakl fvskddfh021371293c teste@hotmail.com lkj098231
 asdja u2po3u1298 yn sb alj JONAS@EMAIL.COM.br qwd,ja kjsd
@@ -14,3 +15,4 @@ asdjao d7b12 984 qfugldkcuc-0 m2442 =-=--021 alguamasdlj_12&@mgaicla.com.br asjk
 1297129837 98k jla  a 0 091" 8sjdklja =-= trulyemail@email.com.br 01982309128
 1297129837 98k jla  a 0 091" l1237 n =-= trulyemail@email.eu 09182391723c
 1297129837 98k jla  a 0 091" laoa=-=12222_0=-&trulyemail@email.com.br 72398173981
+`
