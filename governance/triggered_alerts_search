@@ -44,7 +44,17 @@ index=_audit action="alert_fired" ss_app=[app_name]
 | addcoltotals label=Total labelfield=Rule
 | sort -Severity, -count
 
+index=_audit action="alert_fired" ss_app=[app_name]
+| rename ss_name AS title
+| join title [ | rest /servicesNS/-/-/saved/searches splunk_server=local | table title, alert_threshold, search, severity, actions]
+| rename title AS Rule
+| stats values(severity) AS Severity, values(ss_app) AS Customer, sum(triggered_alerts) AS Eventos, count AS Incident by Rule, actions
+| addcoltotals label=Total labelfield=Rule
+| sort Rule, -Severity, -count
+
+#############################################################################
 ## Verify the Alerts that uses to the script to fire ##
+#############################################################################
 
 | rest /servicesNS/-/-/saved/searches splunk_server=local 
 | search eai:acl.app=[app_name] disabled=0 action.script!="" next_scheduled_time!="" action.script.filename=[script_name] next_scheduled_time > "2019-10-10 00:00:00 -03"
