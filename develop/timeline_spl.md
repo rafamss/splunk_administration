@@ -1,4 +1,4 @@
-# How to compare periods of time using appendcols
+# How to compare periods of time using appendcols and timewrap commands
 **Created by:** Rafael Santos
 **Version:** 1.0.0
 **Splunk Version:** Above 7.x
@@ -23,7 +23,7 @@ index=_internal sourcetype=splunkd log_level=error earliest=-0d@d latest=-0d@s
 ```
 index=main error
 | timechart count span=1h
-| timewrap  d series=short
+| timewrap d series=short
 | addtotals s*
 | eval 7dayavg=Total/7.0
 | table _time, _span, s0, s1, 7dayavg
