@@ -1,11 +1,11 @@
-### How to compare periods of time using appendcols
-### Created by: Rafael Santos
-### Version: 1.0.0
-### Splunk Version: > 7.x
+# How to compare periods of time using appendcols
+**Created by:** Rafael Santos
+**Version:** 1.0.0
+**Splunk Version:** Above 7.x
 
-#### Example 01 is using sub-querys to handle with the job
-#### Example 02 is using the timewrap command to perform the same job
-#### Both ways are correct. It's important to analyse which one will be better to do the work properly
+1. Example 01 is using sub-querys to handle with the job
+2. Example 02 is using the timewrap command to perform the same job
+3. Both ways are correct. It's important to analyse which one will be better to do the work properly
 
 #### Example 01
 ```
