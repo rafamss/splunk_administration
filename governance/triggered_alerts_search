@@ -62,3 +62,12 @@ index=_audit action="alert_fired" ss_app=[app_name]
 | table Customer, title, Owner, search, next_scheduled_time, action.script, action.script.filename
 | sort title
 
+## Consult specific alerts created - Enabled or non-enabled ##
+| rest /servicesNS/-/-/saved/searches splunk_server=local 
+| search eai:acl.app=[app_name]
+| rename eai:acl.app AS Customer, eai:acl.owner AS Owner
+| replace admin with "owner_name" in Owner 
+| eval status=if(disabled=1, "Disabled", "Enabled")
+| search title="String_to_Consult*"
+| table Customer, title, Owner, search, status
+| sort title
