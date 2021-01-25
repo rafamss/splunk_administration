@@ -1,5 +1,5 @@
-1. To analysis the amount in GB of the use of License by Index and Sourcetype
-  1. To better performance, it's important to schedule a report or summarize the data.
+## 1. To analysis the amount in GB of the use of License by Index and Sourcetype
+  ### 1. To better performance, it's important to schedule a report or summarize the data.
 
 ```
 index=_internal source=*license_usage.log type="Usage" 
