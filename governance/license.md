@@ -1,4 +1,4 @@
-## * To analysis the amount in GB of the use of License by Index and Sourcetype
+##* To analysis the amount in GB of the use of License by Index and Sourcetype
     ### * To better performance, it's important to schedule a report or summarize the data.
 
 ```
