@@ -71,3 +71,12 @@ index=_audit action="alert_fired" ss_app=[app_name]
 | search title="String_to_Consult*"
 | table Customer, title, Owner, search, status
 | sort title
+
+###############################
+## List of triggered alerts  ##
+## Sorted by triggered_count ##
+###############################
+
+| rest /servicesNS/-/-/saved/searches
+| table eai:acl.owner eai:acl.app id title triggered_alert_count
+| sort - triggered_alert_count
