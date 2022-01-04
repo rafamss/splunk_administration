@@ -80,3 +80,26 @@ index=_audit action="alert_fired" ss_app=[app_name]
 | rest /servicesNS/-/-/saved/searches
 | table eai:acl.owner eai:acl.app id title triggered_alert_count
 | sort - triggered_alert_count
+
+###############################
+## Jan, 04 2022
+## Two new ways to search for fired/triggered alerts
+###############################
+
+# Using this rest endpoint to get the fired_alerts along with yours triggered_alert_count
+```
+| rest splunk_server=local /servicesNS/-/-/alerts/fired_alerts/ 
+| search title!="-" 
+| table title, eai:acl.app, triggered_alert_count 
+| sort 10 - triggered_alert_count
+```
+
+# Join the saved alerts with fired_alerts to get the title of the alert
+```
+| rest /servicesNS/-/-/saved/searches splunk_server=local 
+| join title 
+    [| rest /servicesNS/-/-/alerts/fired_alerts] 
+| dedup title 
+| table eai:acl.app, title, triggered_alert_count 
+| sort 10 - triggered_alert_count
+```
